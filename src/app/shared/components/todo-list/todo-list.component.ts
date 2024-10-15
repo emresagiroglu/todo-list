@@ -1,12 +1,34 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-todo-list',
   standalone: true,
-  imports: [],
+  imports: [FormsModule,CommonModule],
   templateUrl: './todo-list.component.html',
   styleUrl: './todo-list.component.scss'
 })
 export class TodoListComponent {
 
+  todoList : string[] = [];
+  input : string = "";
+
+  
+  onSubmit(): void {
+    if (!this.checkSameTodoName(this.input)) {
+      this.todoList.push(this.input);
+      
+    } else {
+      // Eğer aynı isimli bir todo varsa uyarı göster
+      alert('You already have a todo with the same name!');
+    }
+    this.input = "";
+  }
+  deleteTodo(index : number){
+    this.todoList.splice(index,1);
+  }
+  checkSameTodoName(todo : string): boolean{
+    return this.todoList.includes(todo)
+  }
 }
