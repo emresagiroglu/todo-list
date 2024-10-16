@@ -1,20 +1,38 @@
+<div class="container mt-5">
+  <h3 class="text-center mb-4">To-Do List</h3>
+  
+  <div class="card p-4 shadow">
+    <div class="mb-3">
+      <label for="todoTitle" class="form-label">To-Do Giriniz</label>
+      <input 
+        id="todoTitle" 
+        type="text" 
+        class="form-control" 
+        placeholder="Todo..." 
+        [(ngModel)]="newTodoTitle" 
+      />
+    </div>
+    
+    <div class="mb-3">
+      <label for="userId" class="form-label">User ID Giriniz</label>
+      <input 
+        id="userId" 
+        type="number" 
+        class="form-control" 
+        placeholder="User ID..." 
+        [(ngModel)]="newTodoUserId" 
+      />
+    </div>
 
-<!-- Kullanıcının todo girebileceği bir form, altında todoların listelenmesi, her todonun 1. 2. diye sıralanması -->
-<!-- Sonunda (X) ikonu ile listeden kaldırılabilmesi -->
-<!-- Ekleme esnasında aynı todo mevcutsa (frontend kontrolü) eklemeyip inputu temizlesin.  -->
-<!-- Her ekleme sonrası input temizlensin. -->
-<!-- Bireysel -->
-
-
-<input placeholder="Type your todo" [(ngModel)]="input" type="text">
-<button (click)="onSubmit()">Add</button>
-<ul>
-
-    @for (todo of todoList; track todo ; let i = $index) {
-        <li>{{i + 1}}.{{todo}}
-            <button (click)="deleteTodo(i)">X</button>
-        </li>
+    <button class="btn btn-primary" (click)="addTodo()">Ekle</button>
+  </div>
+  <div class="d-flex flex-wrap justify-content-center">
+    @for(todo of toDoListFromBackend; track todo; let i = $index) {
+      <app-todo-card [toDoFromOtherPage]="todo" (onRemoveClick)="deleteTodo($event.id)" class="m-2" />
     } @empty {
-        <li>There is no Todo.</li>
+      <p class="text-center">Henüz bir todo eklemediniz.</p>
     }
-</ul>
+  </div>
+  
+
+
